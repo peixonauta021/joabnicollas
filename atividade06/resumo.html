@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <title>Resumo dos Gastos</title>
+    <style>
+        body { font-family: Arial; margin: 30px; }
+        .box { background: #eee; padding: 20px; border-radius: 10px; width: 300px; }
+        h2 { margin-top: 0; }
+    </style>
+</head>
+<body>
+
+    <h1>Resumo dos Gastos</h1>
+
+    <div class="box">
+        <h2>Totais</h2>
+        <p id="total"></p>
+        <p id="media"></p>
+        <p id="maior"></p>
+        <p id="menor"></p>
+    </div>
+
+    <button onclick="voltar()">Voltar</button>
+
+<script>
+    const dados = JSON.parse(localStorage.getItem("gastos"));
+
+    if (!dados || dados.length === 0) {
+        document.body.innerHTML = "<h1>Nenhum dado encontrado.</h1>";
+    } else {
+        const valores = dados.map(g => g.valor);
+
+        const total = valores.reduce((a, b) => a + b, 0);
+        const media = total / valores.length;
+        const maior = Math.max(...valores);
+        const menor = Math.min(...valores);
+
+        document.getElementById("total").textContent = "Total gasto: R$ " + total.toFixed(2);
+        document.getElementById("media").textContent = "Média dos gastos: R$ " + media.toFixed(2);
+        document.getElementById("maior").textContent = "Maior gasto: R$ " + maior.toFixed(2);
+        document.getElementById("menor").textContent = "Menor gasto: R$ " + menor.toFixed(2);
+    }
+
+    function voltar() {
+        window.location.href = "index.html";
+    }
+</script>
+
+</body>
+</html>

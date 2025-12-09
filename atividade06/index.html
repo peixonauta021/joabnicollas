@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <title>Controle de Gastos</title>
+    <style>
+        body { font-family: Arial; margin: 30px; }
+        table { width: 100%; border-collapse: collapse; margin-top: 20px; }
+        th, td { border: 1px solid #444; padding: 8px; text-align: left; }
+        button { padding: 10px 20px; margin-top: 10px; cursor: pointer; }
+    </style>
+</head>
+<body>
+
+    <h1>Cadastro de Gastos</h1>
+
+    <label>Descrição: </label>
+    <input type="text" id="descricao"><br><br>
+
+    <label>Valor (R$): </label>
+    <input type="number" id="valor" step="0.01"><br><br>
+
+    <button id="add">Adicionar</button>
+    <button id="calcular">Calcular</button>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Descrição</th>
+                <th>Valor (R$)</th>
+            </tr>
+        </thead>
+
+        <tbody id="tabela">
+        </tbody>
+    </table>
+
+<script>
+    const tabela = document.getElementById("tabela");
+    const gastos = [];
+
+    document.getElementById("add").addEventListener("click", () => {
+        const desc = document.getElementById("descricao").value.trim();
+        const val = parseFloat(document.getElementById("valor").value);
+
+        if (!desc || isNaN(val) || val <= 0) {
+            alert("Preencha a descrição e o valor corretamente.");
+            return;
+        }
+
+        gastos.push({ descricao: desc, valor: val });
+
+        const tr = document.createElement("tr");
+        tr.innerHTML = `<td>${desc}</td><td>R$ ${val.toFixed(2)}</td>`;
+        tabela.appendChild(tr);
+
+        document.getElementById("descricao").value = "";
+        document.getElementById("valor").value = "";
+    });
+
+    document.getElementById("calcular").addEventListener("click", () => {
+        if (gastos.length === 0) {
+            alert("Nenhum gasto foi adicionado.");
+            return;
+        }
+
+        localStorage.setItem("gastos", JSON.stringify(gastos));
+        window.location.href = "resumo.html";
+    });
+</script>
+
+</body>
+</html>
