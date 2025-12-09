@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/ico" href="img/favicon.ico">
+    <title>robotron</title>
+    <style>
+        body {
+            background-image: url("img/fundo.jpg");
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+        }
+        button {
+            background-color: #1a73e8;
+            color : white;
+            border: none;
+            padding: 15px 25px;
+            border-radius: 12px;
+            font-size: 20px;
+            cursor: pointer;
+            transition: 0.2s;
+            margin: 10px;
+        }
+        button:hover {
+            background-color: #1665c1;
+            transform: scale(1.07);
+        }
+        button:active {
+            transform: scale(0.94);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <button id="voltar" onclick="voltar()"><<<</button>
+        <img id="robotron" src="img/robotron.png" alt="robotron" width="800" height="700">
+        <button id="avancar" onclick="avancar()">>>></button>
+    </div>
+    
+
+    <script>
+        var imagens = [
+            "img/robotron.png",
+            "img/robotron-preto.png",
+            "img/robotron-branco.png",
+            "img/robotron-azul.png",
+            "img/robotron-vermelho.png",
+            "img/robotron-amarelo.png",
+            "img/robotron-rosa.png"
+        ];
+        let indiceAtual = 0;
+        function avancar() {
+            indiceAtual++;
+            if(indiceAtual >= imagens.length) {
+                indiceAtual = 0;
+            }
+            document.getElementById("robotron").src = imagens[indiceAtual];
+        }
+        function voltar() {
+            indiceAtual--;
+            if(indiceAtual < 0) {
+                indiceAtual = imagens.length - 1;
+            }
+            document.getElementById("robotron").src = imagens[indiceAtual];
+        }
+    </script>
+</body>
+</html>
